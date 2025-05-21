@@ -23,7 +23,8 @@ void setup() {
     wifi.init();
     servo.init();
     delay(2000);
-    CommandController::main_robot(); //sepertinya tidak perlu
+    //sepertinya tidak perlu
+    // CommandController::main_robot(); 
     xTaskCreate(task_1, "task_1", 2048, NULL, 1, NULL);
 }
 

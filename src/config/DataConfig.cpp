@@ -15,7 +15,7 @@ float i_sudut[3] = { 0, 0, 0 };
   data_k[2] berfungsi untuk mengatur gerak robot pada sumbu y (Maju dan Mundur)
   data_k[3] berfungsi untuk mengatur gerak robot pada sumbu z (Ketinggian Robot)
 */
-float data_k[4] = { 10, 0, 10, 5 };
+float data_k[4] = { 10, 0, 0, 5 };
 
 int8_t tinggi[2] = { 0 };
 
