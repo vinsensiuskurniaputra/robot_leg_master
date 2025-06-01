@@ -24,6 +24,7 @@ void task_1(void* pvParameters) {
 void setup() {
     Serial.begin(115200);
     wifi.init();
+    espNow.init();  
     servo.init();
     delay(2000);
     //sepertinya tidak perlu
@@ -31,7 +32,7 @@ void setup() {
     xTaskCreate(task_1, "task_1", 2048, NULL, 1, NULL);
 
     uint8_t peerAddress[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};
-    espNow.addPeer(peerAddress);
+    // espNow.addPeer(peerAddress);
 }
 
 void loop() {
