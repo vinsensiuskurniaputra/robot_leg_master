@@ -5,9 +5,12 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "leg_controller/TripodController.h"
+#include <control/ESPNOWController.h>
 
 ServoConfig servo;
 WifiController wifi;
+ESPNOWController espNow;
+
 
 void task_1(void* pvParameters) {
   while (1) {
@@ -26,8 +29,12 @@ void setup() {
     //sepertinya tidak perlu
     // CommandController::main_robot(); 
     xTaskCreate(task_1, "task_1", 2048, NULL, 1, NULL);
+
+    uint8_t peerAddress[] = {0x24, 0x6F, 0x28, 0xAA, 0xBB, 0xCC};
+    espNow.addPeer(peerAddress);
 }
 
 void loop() {
-    wifi.controlRobot();
+    // wifi.controlRobot();
+    espNow.controlRobot();
 }
