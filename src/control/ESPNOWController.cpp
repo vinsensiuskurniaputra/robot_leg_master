@@ -55,10 +55,24 @@ void ESPNOWController::onDataReceived(const uint8_t* macAddr, const uint8_t* dat
         if (i < 5) Serial.print(":");
     }
     Serial.println();
-    espnow_command = String((char*)data).substring(0, len);
+
+    // Struktur pesan
+    struct struct_message {
+        char text[100];
+    };
+
+    struct_message msg;
+    memset(&msg, 0, sizeof(msg));  // ✨ Clear isi struct terlebih dahulu
+
+    // ✨ Salin hanya sebanyak len, bukan sizeof(msg)
+    int copyLen = len < sizeof(msg) ? len : sizeof(msg);
+    memcpy(&msg, data, copyLen);
+
+    espnow_command = String(msg.text);
     Serial.print("Command received: ");
     Serial.println(espnow_command);
 }
+
 
 void ESPNOWController::controlRobot() {
     if (espnow_command == "S") CommandController::command(1, 1, 1, 1, 1);
@@ -74,6 +88,9 @@ void ESPNOWController::controlRobot() {
     if (espnow_command == "J") CommandController::command(1, 1, 1, 0, 1); // Capit_Naik
     if (espnow_command == "Z") capit_turun_sebagian();
 
+    // Serial.print("Command received: ");
+    // Serial.println(espnow_command);
+
     // Reset the command after processing
-    espnow_command = "";
+    // espnow_command = "";
 }

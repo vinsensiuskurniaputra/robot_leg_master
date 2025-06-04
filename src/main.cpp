@@ -8,7 +8,7 @@
 #include <control/ESPNOWController.h>
 
 ServoConfig servo;
-WifiController wifi;
+// WifiController wifi;
 ESPNOWController espNow;
 
 
@@ -23,7 +23,7 @@ void task_1(void* pvParameters) {
 
 void setup() {
     Serial.begin(115200);
-    wifi.init();
+    // wifi.init();
     espNow.init();  
     servo.init();
     delay(2000);
