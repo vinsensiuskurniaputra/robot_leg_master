@@ -56,9 +56,11 @@ void ESPNOWController::onDataReceived(const uint8_t* macAddr, const uint8_t* dat
     }
     Serial.println();
 
-    // Struktur pesan
+    // Struktur pesan harus sesuai dengan pengirim
     struct struct_message {
-        char text[100];
+        bool ultra_detected;
+        bool tof_detected;
+        bool dataPerintah[4];
     };
 
     struct_message msg;
@@ -68,7 +70,32 @@ void ESPNOWController::onDataReceived(const uint8_t* macAddr, const uint8_t* dat
     int copyLen = len < sizeof(msg) ? len : sizeof(msg);
     memcpy(&msg, data, copyLen);
 
-    espnow_command = String(msg.text);
+    // ✨ Proses data yang diterima
+    Serial.print("Ultrasonik Deteksi: ");
+    Serial.println(msg.ultra_detected ? "YA" : "TIDAK");
+    Serial.print("ToF Deteksi: ");
+    Serial.println(msg.tof_detected ? "YA" : "TIDAK");
+
+    Serial.print("Data Perintah: {");
+    for (int i = 0; i < 4; i++) {
+        Serial.print(msg.dataPerintah[i]);
+        if (i < 3) Serial.print(", ");
+    }
+    Serial.println("}");
+
+    // ✨ Tentukan perintah berdasarkan dataPerintah
+    if (msg.dataPerintah[0] && msg.dataPerintah[1] && msg.dataPerintah[2] && msg.dataPerintah[3]) {
+        espnow_command = "S"; // Siap
+    } else if (!msg.dataPerintah[0] && !msg.dataPerintah[1] && !msg.dataPerintah[2] && msg.dataPerintah[3]) {
+        espnow_command = "U"; // Maju
+    } else if (msg.dataPerintah[0] && !msg.dataPerintah[1] && !msg.dataPerintah[2] && msg.dataPerintah[3]) {
+        espnow_command = "B"; // Mundur
+    } else if (!msg.dataPerintah[0] && !msg.dataPerintah[1] && msg.dataPerintah[2] && !msg.dataPerintah[3]) {
+        espnow_command = "R"; // Putar Kanan
+    } else {
+        // espnow_command = ""; // Tidak ada perintah valid
+    }
+
     Serial.print("Command received: ");
     Serial.println(espnow_command);
 }
