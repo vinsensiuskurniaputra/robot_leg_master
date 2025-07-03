@@ -25,4 +25,6 @@ extern float totalStep[2];
 extern int8_t kalibrasi[3][6];
 extern const uint8_t pin_command[5];
 
+extern const uint8_t single_leg_control_data[4];
+
 #endif

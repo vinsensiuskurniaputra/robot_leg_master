@@ -43,5 +43,6 @@ int8_t kalibrasi[3][6] = {
   { 96, 97, 85, 94, 93, 95 }, // Servo 3
 };
 
+const uint8_t single_leg_control_data[4] = { 0, 10, 10, 20 }; // Data for single leg control, initialized to zero
 
 const uint8_t pin_command[5] = { 27, 26, 25, 33, 32 }; //sepertinya tidak perlu
