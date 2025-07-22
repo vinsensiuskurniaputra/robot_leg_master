@@ -1,6 +1,19 @@
 #include "leg_controller/NormalStep.h"
 #include "config/DataConfig.h"
 
+void siap() {
+  tinggi[0] = 0;
+  tinggi[1] = 0;
+  tinggi[2] = 0;
+  data_k[0] = 10;
+  data_k[1] = 0;
+  data_k[2] = 0;
+  data_k[3] = 5;
+  i_sudut[0] = 0;
+  i_sudut[1] = 0;
+  i_sudut[2] = 0;
+}
+
 void maju() {
   tinggi[0] = 0;
   tinggi[1] = 0;

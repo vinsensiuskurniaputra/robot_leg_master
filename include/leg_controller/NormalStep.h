@@ -1,6 +1,7 @@
 #ifndef NORMAL_STEP_H
 #define NORMAL_STEP_H
 
+void siap();
 void maju();
 void maju_kanan();
 void kanan();

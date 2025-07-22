@@ -36,7 +36,8 @@ void WifiController::init() {
 void WifiController::controlRobot() {
     server.handleClient();
     com_command = server.arg("State");
-    if (com_command == "S") CommandController::command(1, 1, 1, 1, 1);
+    // if (com_command == "S") CommandController::command(1, 1, 1, 1, 1);
+    if (com_command == "S") siap();
 
     if (d_langkah_ganti == false && langkah_tangga == false && langkah_geser == false) {
         if (com_command == "U") maju();
